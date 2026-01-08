@@ -52,7 +52,7 @@ module Sitemapper
           end
         end
       end
-      filename = "sitemap_index.xml"
+      filename = Sitemapper.config.index_file_name + ".xml"
       {"name" => filename, "data" => doc}
     end
   end

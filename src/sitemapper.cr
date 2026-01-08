@@ -18,6 +18,8 @@ module Sitemapper
     setting use_index : Bool = false
     setting host : String, example: "https://mysite.com"
     setting sitemap_host : String? = nil
+    setting index_file_name : String = "sitemap_index"
+    setting sitemap_file_name : String = "sitemap"
     setting max_urls : Int32 = 500
     setting storage : Sitemapper::Storage.class = Sitemapper::LocalStorage
     setting compress : Bool = true
