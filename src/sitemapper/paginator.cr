@@ -2,19 +2,19 @@ module Sitemapper
   class Paginator
     DEFAULT_LIMIT = 500
     property paths : Array(Tuple(String, SitemapOptions))
-    property index_paths : Array(Tuple(String, SitemapOptions))
+    property index_paths : Array(String)
 
     def initialize(@limit : Int32 = DEFAULT_LIMIT)
       @paths = [] of Tuple(String, SitemapOptions)
-      @index_paths = [] of Tuple(String, SitemapOptions)
+      @index_paths = [] of String
     end
 
     def add(path : String, options : SitemapOptions)
       @paths << {path, options}
     end
 
-    def index_add(path : String, options : SitemapOptions)
-      @index_paths << {path, options}
+    def index_add(path : String)
+      @index_paths << path
     end
 
     def items(current_page : Int32)

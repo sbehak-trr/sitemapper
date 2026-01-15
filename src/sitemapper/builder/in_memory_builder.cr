@@ -26,9 +26,8 @@ module Sitemapper
       self
     end
 
-    def index_add(path, **kwargs) : self
-      options = SitemapOptions.new(**kwargs)
-      paginator.index_add(path, options)
+    def index_add(path) : self
+      paginator.index_add(path)
       self
     end
 
@@ -41,7 +40,7 @@ module Sitemapper
       end
 
       if @use_index
-        filenames = paginator.index_items.map { |path| path[0] }
+        filenames = paginator.index_items
         filenames += @sitemaps.map { |sitemap| sitemap["name"] }
         @sitemaps << generate_index(filenames)
       end

@@ -17,9 +17,8 @@ module Sitemapper
       self
     end
 
-    def index_add(path, **kwargs) : self
-      options = SitemapOptions.new(**kwargs)
-      paginator.index_add(path, options)
+    def index_add(path) : self
+      paginator.index_add(path)
       self
     end
 

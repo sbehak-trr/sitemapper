@@ -23,9 +23,8 @@ module Sitemapper
       self
     end
 
-    def index_add(path, **kwargs) : self
-      options = SitemapOptions.new(**kwargs)
-      paginator.index_add(path, options)
+    def index_add(path) : self
+      paginator.index_add(path)
       self
     end
 
@@ -53,7 +52,7 @@ module Sitemapper
     end
 
     private def save_index : Void
-      @index_filenames += paginator.index_items.map { |path| path[0] }
+      @index_filenames += paginator.index_items
       index = generate_index(@index_filenames + @filenames)
       storage = @storage.new([index])
       storage.save(@storage_path)
