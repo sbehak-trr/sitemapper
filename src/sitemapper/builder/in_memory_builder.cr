@@ -42,8 +42,8 @@ module Sitemapper
 
       if @use_index
         index_filenames = paginator.
-        filenames = @sitemaps.map { |sitemap| sitemap["name"] }
-        filenames = filenames + paginator.index_items.map { |path| path[0] }
+        filenames = paginator.index_items.map { |path| path[0] }
+        filenames += @sitemaps.map { |sitemap| sitemap["name"] }
         @sitemaps << generate_index(filenames)
       end
 
