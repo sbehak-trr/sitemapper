@@ -16,9 +16,6 @@ module Sitemapper
     def add(path, **kwargs) : self
       options = SitemapOptions.new(**kwargs)
       paginator.add(path, options)
-      if paginator.paths.size.modulo(@max_urls).zero?
-        flush
-      end
       self
     end
 
