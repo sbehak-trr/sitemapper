@@ -11,7 +11,6 @@ module Sitemapper
       @paginator = Paginator.new(limit: @max_urls)
       @filenames = [] of String
       @index_filenames = [] of String
-      @current_page = 1
     end
 
     def add(path, **kwargs) : self
@@ -30,22 +29,18 @@ module Sitemapper
       self
     end
 
-    def flush
-      page = @current_page
-      filename = filename_for_current_page
-      doc = build_xml_for_page(paginator.items(1))
+    def flush(page)
+      filename = filename_for_page(page)
+      doc = build_xml_for_page(paginator.items(page))
       @filenames << filename
 
       storage = @storage.new([{"name" => filename, "data" => doc}])
       storage.save(@storage_path)
-
-      @current_page += 1
-      @paginator = Paginator.new(limit: @max_urls)
     end
 
     def finish : Void
-      unless paginator.paths.empty?
-        flush
+      paginator.total_pages.times do |page|
+        flush(page + 1)
       end
 
       if @use_index
@@ -64,8 +59,8 @@ module Sitemapper
       storage.save(@storage_path)
     end
 
-    private def filename_for_current_page
-      Sitemapper.config.sitemap_file_name + "#{@current_page}.xml"
+    private def filename_for_page(page)
+      Sitemapper.config.sitemap_file_name + "#{page}.xml"
     end
   end
 end
