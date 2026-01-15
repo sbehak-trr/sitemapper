@@ -40,8 +40,6 @@ module Sitemapper
     end
 
     private def generate_index(filenames : Array(String)) : Hash(String, String)
-      Log.info{ "generate_index paths:" }
-      Log.info{ filenames }
       doc = XML.build(indent: " ") do |xml|
         xml.element("sitemapindex", xmlns: XMLNS_SCHEMA, "xmlns:video": XMLNS_VIDEO_SCHEMA, "xmlns:image": XMLNS_IMAGE_SCHEMA, "xmlns:xsi": XMLNS_XSI, "xsi:schemaLocation": XSI_INDEX_SCHEMA_LOCATION) do
           filenames.each do |filename|
