@@ -52,7 +52,11 @@ module Sitemapper
     end
 
     private def save_index : Void
+      Log.info("paginator.index_items:")
+      Log.info(paginator.index_items)
       @index_filenames += paginator.index_items
+      Log.info("@index_filenames:")
+      Log.info(@index_filenames)
       index = generate_index(@index_filenames + @filenames)
       storage = @storage.new([index])
       storage.save(@storage_path)
