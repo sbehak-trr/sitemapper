@@ -26,6 +26,12 @@ module Sitemapper
       self
     end
 
+    def index_add(path, **kwargs) : self
+      options = SitemapOptions.new(**kwargs)
+      paginator.index_add(path, options)
+      self
+    end
+
     def generate : Array(Hash(String, String))
       paginator.total_pages.times do |page|
         filename = filename_for_page(page)
@@ -35,7 +41,9 @@ module Sitemapper
       end
 
       if @use_index
+        index_filenames = paginator.
         filenames = @sitemaps.map { |sitemap| sitemap["name"] }
+        filenames = filenames + paginator.index_items.map { |path| path[0] }
         @sitemaps << generate_index(filenames)
       end
 

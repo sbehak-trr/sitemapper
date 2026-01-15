@@ -17,6 +17,12 @@ module Sitemapper
       self
     end
 
+    def index_add(path, **kwargs) : self
+      options = SitemapOptions.new(**kwargs)
+      paginator.index_add(path, options)
+      self
+    end
+
     def flush
       page = @current_page
       filename = filename_for_current_page

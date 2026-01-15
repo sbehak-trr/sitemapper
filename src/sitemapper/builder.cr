@@ -9,6 +9,7 @@ module Sitemapper
     XSI_INDEX_SCHEMA_LOCATION = "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
 
     abstract def add(path, **kwargs) : self
+    abstract def index_add(path, **kwargs) : self
 
     private def build_xml_for_page(items)
       XML.build(indent: " ") do |xml|
