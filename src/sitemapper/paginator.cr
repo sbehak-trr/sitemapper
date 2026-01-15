@@ -14,7 +14,11 @@ module Sitemapper
     end
 
     def index_add(path : String)
+      Log.info{"index_add paginator path:"}
+      Log.info{path}
       @index_paths << path
+      Log.info{"index_add paginator result:"}
+      Log.info{@index_paths}
     end
 
     def items(current_page : Int32)

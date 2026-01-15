@@ -24,6 +24,8 @@ module Sitemapper
     end
 
     def index_add(path) : self
+      Log.info{"index_add path:"}
+      Log.info{path}
       paginator.index_add(path)
       self
     end
