@@ -10,6 +10,7 @@ module Sitemapper
     def initialize(@host : String, @max_urls : Int32, @use_index : Bool, @storage : Sitemapper::Storage.class, @storage_path : String)
       @paginator = Paginator.new(limit: @max_urls)
       @filenames = [] of String
+      @index_filenames = [] of String
       @current_page = 1
     end
 
@@ -52,7 +53,8 @@ module Sitemapper
     end
 
     private def save_index : Void
-      index = generate_index(@filenames)
+      @index_filenames += paginator.index_items.map { |path| path[0] }
+      index = generate_index(@index_filenames + @filenames)
       storage = @storage.new([index])
       storage.save(@storage_path)
     end
