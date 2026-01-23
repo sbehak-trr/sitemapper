@@ -11,6 +11,7 @@ module Sitemapper
       @paginator = Paginator.new(limit: @max_urls)
       @filenames = [] of String
       @index_filenames = [] of String
+      @sitemaps = [] of Hash(String, String)
     end
 
     def add(path, **kwargs) : self
