@@ -26,6 +26,11 @@ module Sitemapper
       self
     end
 
+    def index_add(path) : self
+      paginator.index_add(path)
+      self
+    end
+
     def generate : Array(Hash(String, String))
       paginator.total_pages.times do |page|
         filename = filename_for_page(page)
@@ -35,7 +40,8 @@ module Sitemapper
       end
 
       if @use_index
-        filenames = @sitemaps.map { |sitemap| sitemap["name"] }
+        filenames = paginator.index_items
+        filenames += @sitemaps.map { |sitemap| sitemap["name"] }
         @sitemaps << generate_index(filenames)
       end
 
@@ -44,9 +50,9 @@ module Sitemapper
 
     private def filename_for_page(page)
       if paginator.total_pages == 1
-        "sitemap.xml"
+        Sitemapper.config.sitemap_file_name + ".xml"
       else
-        "sitemap#{page + 1}.xml"
+        Sitemapper.config.sitemap_file_name + "#{page + 1}.xml"
       end
     end
   end
